@@ -44,13 +44,20 @@ def index():
 
 @app.route('/update')
 def update():
-    os.system("""cd /home/chianode/ChiaNodeService &&
+    os.system("""
+    cd /home/chianode/ChiaNodeService &&
     git fetch --all &&
     git reset --hard origin/master &&
     sudo chmod +777 * -R
+    echo "creating venv" &&
+    python3 -m venv ./venv &&
+    echo "activating venv" &&
+    source venv/bin/activate &&
+    echo "install requirements" &&
+    pip3 install -r requirements.txt &&
     """)
 
-    return ("updating...")
+    return ("updated")
 
 
 @app.route('/restart')
