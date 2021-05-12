@@ -24,15 +24,17 @@ def index():
 
 @app.route('/update')
 def update():
-    os.system("cd /home/chianode/ChiaNodeService && git pull")
-    return ("hopeing it works")
+    os.system("""cd /home/chianode/ChiaNodeService &&
+    git fetch --all &&
+    git reset --hard origin/master
+    """)
+
+    return ("updating...")
 
 @app.route('/restart')
 def restart():
     os.system("sudo systemctl restart chianode")
-    #os.system("sudo touch /home/chianode/ChiaNodeService/here.touch")
-    #os.system("sudo chmod +777 /home/chianode/ChiaNodeService/here.touch")
-    return("testing..")
+    return("restarting..")
 
 # If this program was called directly (as opposed to imported)
 if __name__ == "__main__":
