@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+import threading
 import logging
 from flask import Flask
 from flask import redirect
@@ -37,7 +37,7 @@ def update():
 
 @app.route('/restart')
 def restart():
-    os.system("sudo systemctl restart chianode")
+    threading.Timer(.5,lambda x: os.system("sudo systemctl restart chianode"))
     return redirect("/", code=302)
 
 # If this program was called directly (as opposed to imported)
