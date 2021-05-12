@@ -1,4 +1,3 @@
 venv
-*.key
-secrets.sh
 .vscode
+.idea
