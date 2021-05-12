@@ -26,7 +26,8 @@ def index():
 def update():
     os.system("""cd /home/chianode/ChiaNodeService &&
     git fetch --all &&
-    git reset --hard origin/master
+    git reset --hard origin/master &&
+    sudo chmod +777 * -R
     """)
 
     return ("updating...")
