@@ -49,8 +49,6 @@ def update():
     git fetch --all &&
     git reset --hard origin/master &&
     sudo chmod +777 * -R
-    echo "creating venv" &&
-    python3 -m venv ./venv &&
     echo "activating venv" &&
     source venv/bin/activate &&
     echo "install requirements" &&
