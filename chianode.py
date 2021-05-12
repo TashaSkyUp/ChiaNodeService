@@ -40,6 +40,5 @@ def restart():
 # If this program was called directly (as opposed to imported)
 if __name__ == "__main__":
     print("hello from main")
-    app.run()
-
+    app.run(host="0.0.0.0", port=8080)
 

@@ -1,6 +1,9 @@
 #environment
+echo "creating venv" &&
 python3 -m venv ./venv &&
+echo "activating venv" &&
 source venv/bin/activate &&
+echo "install requirements" &&
 pip3 install -r requirements.txt &&
 
 #service
