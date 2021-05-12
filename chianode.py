@@ -15,12 +15,24 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return("<a href='restart'>restart</a>")
+    commands="""
+    <a href='restart'>restart</a>
+    <a href='update'>update</a>    
+    """
+    return(commands)
+
+
+@app.route('/update')
+def restart():
+    os.system("cd /home/chianode/ChiaNodeService && git pull")
+
+
 @app.route('/restart')
 def restart():
-    os.system("sudo systemctl stop chianode")
-    os.system("sudo touch /home/chianode/ChiaNodeService/here.touch")
-    os.system("sudo chmod +777 /home/chianode/ChiaNodeService/here.touch")
+
+    os.system("sudo systemctl restart chianode")
+    #os.system("sudo touch /home/chianode/ChiaNodeService/here.touch")
+    #os.system("sudo chmod +777 /home/chianode/ChiaNodeService/here.touch")
     return("testing..")
 
 # If this program was called directly (as opposed to imported)
