@@ -15,9 +15,10 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    commands="""
+    commands="""<div>
     <a href='restart'>restart</a>
-    <a href='update'>update</a>    
+    <a href='update'>update</a>
+    </div>    
     """
     return(commands)
 
