@@ -2,6 +2,7 @@
 
 import logging
 from flask import Flask
+from flask import redirect
 import matplotlib.pyplot as plt
 import os, time
 import subprocess, select
@@ -37,7 +38,7 @@ def update():
 @app.route('/restart')
 def restart():
     os.system("sudo systemctl restart chianode")
-    return("restarting..")
+    return redirect("/", code=302)
 
 # If this program was called directly (as opposed to imported)
 if __name__ == "__main__":
