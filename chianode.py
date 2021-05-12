@@ -17,12 +17,13 @@ app = Flask(__name__)
 
 
 def get_plot_info_strings():
-    data = processutils.get_chia_data(processutils.get_chia_pids())
-    strings = []
-    for plot in data:
-        strings += ["plot: " + data["id"] + " " +
-                    +"size: " + data["cur_dir_size_1"] + " "
-                    ]
+    for pid in processutils.get_chia_pids():
+        data = processutils.get_chia_data(pid)
+        strings = []
+        for plot in data:
+            strings += ["plot: " + data["id"] + " " +
+                        +"size: " + data["cur_dir_size_1"] + " "
+                        ]
     return strings
 
 
