@@ -18,12 +18,12 @@ app = Flask(__name__)
 
 def get_plot_info_strings():
     for pid in processutils.get_chia_pids():
-        data = processutils.get_chia_data(pid)
+        pid_data = processutils.get_chia_data(pid)
         strings = []
-        for plot in data:
-            strings += ["plot: " + data["id"] + " " +
-                        +"size: " + data["cur_dir_size_1"] + " "
-                        ]
+
+        strings += ["plot: " + pid_data["id"] + " " +
+                    +"size: " + pid_data["cur_dir_size_1"] + " "
+                    ]
     return strings
 
 
@@ -45,8 +45,10 @@ def index():
 
 @app.route('/update')
 def update():
-    os.system("""
+    os.system("""    
     cd /home/chianode/ChiaNodeService &&
+    mkdir backup
+    cp * backup &&
     git fetch --all &&
     git reset --hard origin/master &&
     sudo chmod +777 * -R
