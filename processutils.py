@@ -32,7 +32,8 @@ def get_chia_dirs(pid):
             root_directory = pathlib.Path(dir)
             size = sum(f.stat().st_size for f in root_directory.glob('**/*') if
                        (f.is_file() &
-                        ("gvfs" not in f.name))
+                        (not f.is_mount())
+                        )
             )
             out += [(dir, size)]
 
