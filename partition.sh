@@ -36,3 +36,11 @@ sudo mount /dev/sd$drive$[1] /plot$p
 let "p=p+1"
 sudo mount /dev/sd$drive$[2] /plot$p
 done
+for i in `seq 1 12`;
+
+do
+    echo item: $i
+    sudo mkdir /plot$i
+    sudo chmod +777 /plot$i
+
+done
