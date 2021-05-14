@@ -1,1 +1,1 @@
-sudo mkfs.xfs /dev/sd$value$[1] -f -m crc=0 -i maxpct=1 -l size=853b
+for i in `seq 1 12`; do echo item: $i;sudo chmod +777 /plot$i; done 
