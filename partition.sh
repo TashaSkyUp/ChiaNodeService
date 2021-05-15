@@ -23,7 +23,7 @@ for value in b c d e f g h
 do
 sudo parted --script /dev/sd$value mklabel GPT
 sudo parted  /dev/sd$value rm 1
-sudo parted  /dev/sd$value rm sudo mdadm --remove /dev/md1272
+sudo parted  /dev/sd$value rm 2
 sudo parted  /dev/sd$value rm 3
 sudo parted  /dev/sd$value rm 4
 done
