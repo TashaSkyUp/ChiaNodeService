@@ -17,11 +17,16 @@ EOF
 
 for value in b c d e f g h
 do
-sudo sfdisk /dev/sd$value <<EOF
-,500115871
-,
-write
-EOF
+sudo parted  /dev/sd$value rm 1
+sudo parted  /dev/sd$value rm 2
+sudo parted  /dev/sd$value rm 3
+sudo parted  /dev/sd$value rm 4
+
+sudo parted  /dev/sdf mkpart primary 500119552s 4TB
+sudo parted  /dev/sd$value mkpart primary 2048s  500119551
+sudo parted  /dev/sdf mkpart primary 500119552s 4TB
+sudo parted  /dev/sdf mkpart primary 500119552s 2TB
+
 ##########################
 echo "Formatting"
 sudo partprobe /dev/sd$value
