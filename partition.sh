@@ -35,8 +35,10 @@ sudo mkfs.xfs /dev/sd$value$[1] -f -m crc=0 -i maxpct=1 -l size=853b
 sudo mkfs.xfs /dev/sd$value$[2] -f -m crc=0 -i maxpct=1 -l size=853b
 done
 ##########################
-echo "spare space to raid 0"
+sleep 10
+echo "spare space to raid 0 :sda+sdb"
 sudo mdadm --create /dev/md0 -l 0 -n 2 /dev/sda5 /dev/sdb2
+echo "spare space to raid 0 :remainder"
 sudo mdadm --create /dev/md1 -l 5 -n 7 /dev/md0 /dev/sdc2 /dev/sdd2 /dev/sde2 /dev/sdf2 /dev/sdg2 /dev/sdh2
 
 echo "Mounting etc.."
