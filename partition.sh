@@ -3,6 +3,10 @@
 echo "Unmounting"
 
 sudo mdadm --stop md0 md1
+sudo mdadm --remove /dev/md0
+sudo mdadm --remove /dev/md1
+
+sudo mdadm --stop md126 md127
 sudo mdadm --remove /dev/md126
 sudo mdadm --remove /dev/md127
 
