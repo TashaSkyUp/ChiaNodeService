@@ -76,7 +76,7 @@ do
     sudo chmod +777 /plot$i
 
 done
-
+sudo mkfs.ext4 /dev/md0 && sudo mkfs.ext4 /dev/md1
 sudo mkdir /farm
 sudo chmod +777 /farm
 sudo mount /dev/md1 /farm
