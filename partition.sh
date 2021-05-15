@@ -1,6 +1,8 @@
 #!/bin/bash
 ########################
 echo "Unmounting"
+
+sudo mdadm --stop md0 md1
 for i in `seq 1 12`;
 do
     echo item: $i
