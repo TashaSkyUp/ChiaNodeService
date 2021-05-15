@@ -77,3 +77,6 @@ do
 
 done
 
+sudo mkdir /farm
+sudo chmod +777 /farm
+sudo mount /dev/md1 /farm
