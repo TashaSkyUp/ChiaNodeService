@@ -1,15 +1,15 @@
 #!/bin/bash
 ########################
 echo "Unmounting"
+unmdadm(){
+    sudo mdadm --stop md0 md1
+    sudo mdadm --remove /dev/md0
+    sudo mdadm --remove /dev/md1
 
-sudo mdadm --stop md0 md1
-sudo mdadm --remove /dev/md0
-sudo mdadm --remove /dev/md1
-
-sudo mdadm --stop md126 md127
-sudo mdadm --remove /dev/md126
-sudo mdadm --remove /dev/md127
-
+    sudo mdadm --stop md126 md127
+    sudo mdadm --remove /dev/md126
+    sudo mdadm --remove /dev/md127
+}
 for i in `seq 1 12`;
 do
     echo item: $i
@@ -41,6 +41,7 @@ do
 echo "Formatting"
 sudo partprobe /dev/sd$value
 sudo mkfs.xfs /dev/sd$value$[1] -f -m crc=0 -i maxpct=1 -l size=853b
+unmdadm
 sudo mkfs.xfs /dev/sd$value$[2] -f -m crc=0 -i maxpct=1 -l size=853b
 done
 ##########################
