@@ -22,10 +22,10 @@ sudo parted  /dev/sd$value rm 2
 sudo parted  /dev/sd$value rm 3
 sudo parted  /dev/sd$value rm 4
 
-sudo parted  /dev/sdf mkpart primary 500119552s 4TB
+sudo parted  /dev/sd$value mkpart primary 500119552s 4TB
 sudo parted  /dev/sd$value mkpart primary 2048s  500119551
-sudo parted  /dev/sdf mkpart primary 500119552s 4TB
-sudo parted  /dev/sdf mkpart primary 500119552s 2TB
+sudo parted  /dev/sd$value mkpart primary 500119552s 4TB
+sudo parted  /dev/sd$value mkpart primary 500119552s 2TB
 
 ##########################
 echo "Formatting"
