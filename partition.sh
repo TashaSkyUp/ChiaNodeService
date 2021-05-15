@@ -35,6 +35,10 @@ sudo mkfs.xfs /dev/sd$value$[1] -f -m crc=0 -i maxpct=1 -l size=853b
 sudo mkfs.xfs /dev/sd$value$[2] -f -m crc=0 -i maxpct=1 -l size=853b
 done
 ##########################
+echo "spare space to raid 0"
+sudo mdadm --create /dev/md0 -l 0 -n 2 /dev/sda5 /dev/sdb2
+sudo mdadm --create /dev/md1 -l 5 -n 7 /dev/md0 /dev/sdc2 /dev/sdd2 /dev/sde2 /dev/sdf2 /dev/sdg2 /dev/sdh2
+
 echo "Mounting etc.."
 for i in `seq 1 8`;
 do
@@ -46,6 +50,7 @@ done
 
 sudo mount /dev/sda4 /plot1
 p=2
+
 for drive in b c d e f g h
 do
 sudo mount /dev/sd$drive$[1] /plot$p
@@ -60,5 +65,3 @@ do
 
 done
 
-sudo mdadm --create /dev/md0 -l 0 -n 2 /dev/sda5 /dev/sdb2
-sudo mdadm --create /dev/md1 -l 5 -n 7 /dev/md0 /dev/sdc2 /dev/sdd2 /dev/sde2 /dev/sdf2 /dev/sdg2 /dev/sdh2
