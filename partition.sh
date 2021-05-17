@@ -52,7 +52,7 @@ done
 #sudo mdadm --create /dev/md1 -l 5 -n 7 /dev/md0 /dev/sdc2 /dev/sdd2 /dev/sde2 /dev/sdf2 /dev/sdg2 /dev/sdh2
 
 echo "Mounting etc.."
-for i in `seq 1 8`;
+for i in `seq 12 20`;
 do
     echo item: $i
     sudo mkdir /plot$i
@@ -71,7 +71,7 @@ sudo mount /dev/sd$drive$[2] /farm$p
 let "p=p+1"
 done
 
-for i in `seq 1 8`;
+for i in `seq 12 20`;
 
 do
     echo item: $i
