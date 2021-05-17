@@ -7,5 +7,5 @@ fi
 
 for i in `seq $1 $2`
 do
-./lane.sh $3 $4 $i
+./lane.sh $3 $4 $i $i
 done
