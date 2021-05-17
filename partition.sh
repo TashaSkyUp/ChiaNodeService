@@ -62,8 +62,8 @@ do
     sudo chmod +777 /farm$i
 done
 
-sudo mount /dev/sda4 /plot1
-p=12
+sudo mount /dev/sda4 /plot12
+p=13
 
 for drive in b c d e f g h
 do
