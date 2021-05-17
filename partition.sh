@@ -10,10 +10,11 @@ unmdadm(){
     sudo mdadm --remove /dev/md126
     sudo mdadm --remove /dev/md127
 }
-for i in `seq 1 12`;
+for i in `seq 1 20`;
 do
     echo item: $i
     sudo umount /plot$i
+    sudo umount /farm$i
 
 done
 ########################
