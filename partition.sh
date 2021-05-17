@@ -62,7 +62,7 @@ do
 done
 
 sudo mount /dev/sda4 /plot1
-p=2
+p=12
 
 for drive in b c d e f g h
 do
