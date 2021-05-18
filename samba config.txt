@@ -1,0 +1,48 @@
+[farm12]
+path = /farm12
+read only = no
+guest ok = yes
+borwseable = yes
+
+[farm13]
+path = /farm13
+read only = no
+guest ok = yes
+borwseable = yes
+
+[farm14]
+path = /farm14
+read only = no
+guest ok = yes
+borwseable = yes
+
+[farm15]
+path = /farm15
+read only = no
+guest ok = yes
+borwseable = yes
+
+[farm16]
+path = /farm16
+read only = no
+guest ok = yes
+borwseable = yes
+
+[farm17]
+path = /farm17
+read only = no
+guest ok = yes
+borwseable = yes
+
+[farm18]
+path = /farm18
+read only = no
+guest ok = yes
+borwseable = yes
+
+[farm19]
+path = /farm19
+read only = no
+guest ok = yes
+borwseable = yes
+
