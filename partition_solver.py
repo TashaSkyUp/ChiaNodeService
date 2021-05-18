@@ -33,14 +33,20 @@ def f(X,detail=False):
     for i in range(5):
 
         p1idx = int(XO[tot_parts+i])
-        p2idx = int(XO[tot_parts + i +1])
+        p2idx = int(XO[tot_parts + i + 1])
+        p3idx = int(XO[tot_parts + i + 2])
+
         p1r = XO[p1idx]
         p2r = XO[p2idx]
+        p3r = XO[p3idx]
+
         XO[p1idx]=0
         XO[p2idx]=0
+        XO[p3idx] = 0
+
         if detail:
-            print(p1r+p2r)
-        r += [p1r+p2r]
+            print(p1r+p2r+p2r)
+        r += [p1r+p2r+p2r]
 
     score =0
     for rs in r:
@@ -64,7 +70,7 @@ def f(X,detail=False):
     return 1-score_out
 
 l1 = [[0,247]]*(disks*(parts-1))
-l2 = [[0,tot_parts]]*10
+l2 = [[0,tot_parts]]*(15)
 l=[]+l1+l2
 print (l)
 varbound=np.array(l)
