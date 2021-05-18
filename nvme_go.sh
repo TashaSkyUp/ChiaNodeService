@@ -8,5 +8,5 @@ do
   do
     $chiaexec plots create -k 32 -n 1 -b $1 -r $2 -t /plot0 -d /farm$i --override-k > laneNvme$i.txt
     sleep 30m
-  done &
-done
+  done
+done &
