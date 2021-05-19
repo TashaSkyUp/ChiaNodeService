@@ -78,7 +78,8 @@ def get_chia_data(pid):
             dic['cur_cpu'] = proc.cpu_percent(.50)
             dic['cur_dir_size_1'] = dir_sizes[0][1]
             dic['cur_dir_size_2'] = dir_sizes[1][1]
-            dic['cur_dir_size_3'] = dir_sizes[2][1]
+            if len(dir_sizes) >2:
+                dic['cur_dir_size_3'] = dir_sizes[2][1]
             dic['tot_reads'] = proc.io_counters().read_count
             dic['tot_writes'] = proc.io_counters().write_count
             dic['tot_read'] = proc.io_counters().read_bytes
