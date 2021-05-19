@@ -27,7 +27,13 @@ def get_chia_dirs(pid):
     with proc.oneshot():
         tmp = proc.cmdline()[5:8]
         print ("cmdline",proc.cmdline())
-        dirs = [tmp[0][2:], tmp[1][2:], tmp[2][2:]]
+        print (tmp)
+        dirs=[]
+        for part in proc.cmdline():
+            if "/" in part:
+                dirs+=[part]
+
+        print(dirs)
         out = []
         for dir in dirs:
             print(dir)
