@@ -17,13 +17,14 @@ app = Flask(__name__)
 
 
 def get_plot_info_strings():
+    strings = {}
     for pid in processutils.get_chia_pids():
         pid_data = processutils.get_chia_data(pid)
-        strings = []
+        plot_id=pid_data["id"]
         strsize = str(pid_data["cur_dir_size_1"])
-        outstr = "plot: " + pid_data["id"] + " " +"size: " + strsize + " "
-        strings += [outstr]
-    return strings
+        outstr = "plot: " + plot_id + " " +"size: " + strsize + " "
+        strings[plot_id]= outstr
+    return list(strings.values())
 
 
 @app.route('/')
@@ -31,7 +32,7 @@ def index():
     commands = ""
 
     for plot in get_plot_info_strings():
-        commands += plot
+        commands += plot+"<br>"
 
     commands += """
     <div style="display:grid">
