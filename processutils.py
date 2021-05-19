@@ -30,7 +30,8 @@ def get_chia_dirs(pid):
         out = []
         for dir in dirs:
             root_directory = pathlib.Path(dir)
-            flist = [f.stat().st_size for f in root_directory.glob('**/*') if ((f.is_file() & (not f.is_mount())))]
+            flist = [f.stat().st_size for f in root_directory.glob('**/*') ]
+            #flist = [f.stat().st_size for f in root_directory.glob('**/*') if ((f.is_file() & (not f.is_mount())))]
             print (flist)
             size = sum(flist)
 
@@ -40,12 +41,13 @@ def get_chia_dirs(pid):
 
 
 def get_chia_data(pid):
-    dic = {'time': [], 'id': [], 'cur_cpu': [], 'tot_reads': [],
-           'tot_writes': [], 'tot_read': [], 'tot_write': [],
-           'cur_dir_size_1': [],
-           'cur_dir_size_2': [],
-           'cur_dir_size_3': []
-           }
+    #dic = {'time': Empty , 'id': [], 'cur_cpu': [], 'tot_reads': [],
+    #       'tot_writes': [], 'tot_read': [], 'tot_write': [],
+    #       'cur_dir_size_1': [],
+    #       'cur_dir_size_2': [],
+    #       'cur_dir_size_3': []
+    #       }
+    dic={}
     dir_sizes = get_chia_dirs(pid)
     try:
         proc = psutil.Process(pid)
@@ -56,16 +58,16 @@ def get_chia_data(pid):
         try:
             open_files = [ opf.path for opf in proc.open_files()]
 
-            dic['time'] += [datetime.datetime.now()]
-            dic['id'] +=  [open_files[0].split(".")[-2].split("_")[-1]]
-            dic['cur_cpu'] += [proc.cpu_percent(.50)]
-            dic['cur_dir_size_1'] += [dir_sizes[0][1]]
-            dic['cur_dir_size_2'] += [dir_sizes[1][1]]
-            dic['cur_dir_size_3'] += [dir_sizes[2][1]]
-            dic['tot_reads'] += [proc.io_counters().read_count]
-            dic['tot_writes'] += [proc.io_counters().write_count]
-            dic['tot_read'] += [proc.io_counters().read_bytes]
-            dic['tot_write'] += [proc.io_counters().write_bytes]
+            dic['time'] = datetime.datetime.now()
+            dic['id'] =  open_files[0].split(".")[-2].split("_")[-1]
+            dic['cur_cpu'] = proc.cpu_percent(.50)
+            dic['cur_dir_size_1'] = dir_sizes[0][1]
+            dic['cur_dir_size_2'] = dir_sizes[1][1]
+            dic['cur_dir_size_3'] = dir_sizes[2][1]
+            dic['tot_reads'] = proc.io_counters().read_count
+            dic['tot_writes'] = proc.io_counters().write_count
+            dic['tot_read'] = proc.io_counters().read_bytes
+            dic['tot_write'] = proc.io_counters().write_bytes
 
         except:
             print("Unexpected error:", sys.exc_info()[0])

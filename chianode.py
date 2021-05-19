@@ -20,10 +20,9 @@ def get_plot_info_strings():
     for pid in processutils.get_chia_pids():
         pid_data = processutils.get_chia_data(pid)
         strings = []
-
-        strings += ["plot: " + pid_data["id"] + " " +
-                    +"size: " + pid_data["cur_dir_size_1"] + " "
-                    ]
+        strsize = str(pid_data["cur_dir_size_1"])
+        outstr = "plot: " + pid_data["id"] + " " +"size: " + strsize + " "
+        strings += [outstr]
     return strings
 
 
@@ -74,4 +73,4 @@ def restarted():
 
 if __name__ == "__main__":
     print("hello from main")
-    app.run(host="0.0.0.0", port=80)
+    app.run(host="0.0.0.0", port=5000)
