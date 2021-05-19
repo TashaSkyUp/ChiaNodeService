@@ -8,7 +8,7 @@ from flask import redirect
 import matplotlib.pyplot as plt
 import os, time
 import subprocess, select
-
+import sys
 # Initialization
 log = logging.getLogger('chianode')
 log.setLevel(logging.INFO)
@@ -21,10 +21,12 @@ def get_plot_info_strings():
     for pid in processutils.get_chia_pids():
         pid_data = processutils.get_chia_data(pid)
         plot_id=pid_data["id"]
-        strsize = str(pid_data["cur_dir_size_1"])
-        outstr = "plot: " + plot_id + " " +\
-                 "size: " + strsize + " " + \
-                 "start time: " + pid_data["start_time"] + " "
+        tminus = ((pid_data["start_time"]-time.time())/60)
+        size = pid_data["cur_dir_size_1"]/ (1024*1024*1024)
+        outstr = "Plot: " + plot_id +\
+                 " size: " + str(size)[:6]+" GiB" + \
+                 " T minus: " +str(tminus)[:6] +" minutes"+ \
+                 " MiB/sec: "+str(size*100/-(tminus*60))[:6]
 
 
         strings[plot_id]= outstr
@@ -78,4 +80,10 @@ def restarted():
 
 if __name__ == "__main__":
     print("hello from main")
-    app.run(host="0.0.0.0", port=5000)
+    print (sys.argv)
+    print(len(sys.argv))
+    if len (sys.argv)>1:
+        app.run(host="0.0.0.0", port=80, debug=True)
+    else:
+        app.run(host="0.0.0.0", port=5000,debug=True)
+

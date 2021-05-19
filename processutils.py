@@ -30,10 +30,13 @@ def get_chia_dirs(pid):
         out = []
         for dir in dirs:
             root_directory = pathlib.Path(dir)
-            flist = [f.stat().st_size for f in root_directory.glob('**/*') ]
+            files = root_directory.glob('**/*')
+            fsizes = [f.stat().st_size for f in files]
+            files = root_directory.glob('**/*')
+            fnames = [f.name for f in files]
             #flist = [f.stat().st_size for f in root_directory.glob('**/*') if ((f.is_file() & (not f.is_mount())))]
-            print (flist)
-            size = sum(flist)
+            print (fsizes)
+            size = sum(fsizes)
 
             out += [(dir, size)]
 

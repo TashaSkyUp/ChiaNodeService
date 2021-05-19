@@ -6,6 +6,6 @@ WantedBy=multi-user.target
 
 [Service]
 Type=simple
-ExecStart=/home/chianode/ChiaNodeService/venv/bin/python3 /home/chianode/ChiaNodeService/chianode.py
+ExecStart=/home/chianode/ChiaNodeService/venv/bin/python3 /home/chianode/ChiaNodeService/chianode.py server
 EnvironmentFile=/home/chianode/ChiaNodeService/secrets.env
 Restart=always
