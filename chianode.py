@@ -22,7 +22,11 @@ def get_plot_info_strings():
         pid_data = processutils.get_chia_data(pid)
         plot_id=pid_data["id"]
         strsize = str(pid_data["cur_dir_size_1"])
-        outstr = "plot: " + plot_id + " " +"size: " + strsize + " "
+        outstr = "plot: " + plot_id + " " +\
+                 "size: " + strsize + " " + \
+                 "start time: " + pid_data["start_time"] + " "
+
+
         strings[plot_id]= outstr
     return list(strings.values())
 

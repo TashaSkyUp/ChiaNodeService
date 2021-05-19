@@ -68,7 +68,7 @@ def get_chia_data(pid):
             dic['tot_writes'] = proc.io_counters().write_count
             dic['tot_read'] = proc.io_counters().read_bytes
             dic['tot_write'] = proc.io_counters().write_bytes
-
+            dic['start_time'] = proc.create_time()
         except:
             print("Unexpected error:", sys.exc_info()[0])
             print(proc.open_files())
