@@ -21,11 +21,11 @@ def get_plot_info_strings():
     for pid in processutils.get_chia_pids():
         pid_data = processutils.get_chia_data(pid)
         plot_id=pid_data["id"]
-        tminus = ((pid_data["start_time"]-time.time())/60)
+        tminus = ((pid_data["start_time"]-time.time())/(60*60))
         size = pid_data["cur_dir_size_1"]/ (1024*1024*1024)
         outstr = "Plot: " + plot_id +\
                  " size: " + str(size)[:6]+" GiB" + \
-                 " T minus: " +str(tminus)[:6] +" minutes"+ \
+                 " T minus: " +str(tminus)[:6] +" hours"+ \
                  " MiB/sec: "+str(size*100/-(tminus*60))[:6]
 
 
