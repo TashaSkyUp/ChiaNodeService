@@ -75,7 +75,7 @@ def get_chia_data(pid):
             print(open_files)
             dic['time'] = datetime.datetime.now()
 
-            dic['id'] =  open_files[0].split(".")[-2].split("_")[-1]
+            dic['id'] =  open_files[-1].split(".")[-2].split("_")[-1]
 
             dic['cur_cpu'] = proc.cpu_percent(.50)
             dic['cur_dir_size_1'] = dir_sizes[0][1]
