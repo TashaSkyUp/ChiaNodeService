@@ -33,6 +33,8 @@ def get_chia_dirs(pid):
             if "/" in part:
                 dirs+=[part]
 
+        dirs = dirs[1:]
+
         print(dirs)
         out = []
         for dir in dirs:
