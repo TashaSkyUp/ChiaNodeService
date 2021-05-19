@@ -72,9 +72,11 @@ def get_chia_data(pid):
     with proc.oneshot():
         try:
             open_files = [ opf.path for opf in proc.open_files()]
-
+            print(open_files)
             dic['time'] = datetime.datetime.now()
+
             dic['id'] =  open_files[0].split(".")[-2].split("_")[-1]
+
             dic['cur_cpu'] = proc.cpu_percent(.50)
             dic['cur_dir_size_1'] = dir_sizes[0][1]
             dic['cur_dir_size_2'] = dir_sizes[1][1]
