@@ -29,6 +29,7 @@ def get_chia_dirs(pid):
         dirs = [tmp[0][2:], tmp[1][2:], tmp[2][2:]]
         out = []
         for dir in dirs:
+            print(dir)
             root_directory = pathlib.Path(dir)
             files = root_directory.glob('**/*')
             fnames = [f.name for f in files]
