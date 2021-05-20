@@ -24,7 +24,6 @@ if [ -z $6 ]
   fi
 echo $f_pfx
 
-exit 1
 
 while sleep 1; do sleep 10s &&
 kill $(ps -ef |grep "/plot$3 "| grep chia |awk '{print $3}')
