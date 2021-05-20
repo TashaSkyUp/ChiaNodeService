@@ -71,11 +71,28 @@ def get_chia_data(pid):
 
     with proc.oneshot():
         try:
+            print(proc.exe())
             open_files = [ opf.path for opf in proc.open_files()]
-            print(open_files)
+            children = proc.children()
+
+            if len(children) > 0:
+                return
+                dic['id'] = "unknown"
+                #logfile = children[0]
+            else:
+                logfile = proc.open_files()[0]
+                if "path" in logfile.__dir__():
+                    logfile = logfile.path
+                    dic['id'] = logfile.split("_")[-1].split(".")[0]
+                else:
+                    dic['id'] = "unknown"
+
+
+
+
             dic['time'] = datetime.datetime.now()
 
-            dic['id'] =  open_files[-1].split(".")[-2].split("_")[-1]
+
 
             dic['cur_cpu'] = proc.cpu_percent(.50)
             dic['cur_dir_size_1'] = dir_sizes[0][1]
