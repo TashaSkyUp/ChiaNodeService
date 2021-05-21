@@ -26,8 +26,8 @@ def get_chia_dirs(pid):
 
     with proc.oneshot():
         tmp = proc.cmdline()[5:8]
-        print ("cmdline",proc.cmdline())
-        print (tmp)
+        #print ("cmdline",proc.cmdline())
+        #print (tmp)
         dirs=[]
         for part in proc.cmdline():
             if "/" in part:
@@ -35,14 +35,14 @@ def get_chia_dirs(pid):
 
         dirs = dirs[1:]
 
-        print(dirs)
+        #print(dirs)
         out = []
         for dir in dirs:
-            print(dir)
+            #print(dir)
             root_directory = pathlib.Path(dir)
             files = root_directory.glob('**/*')
             fnames = [f.name for f in files]
-            print (fnames)
+            #print (fnames)
 
             files = root_directory.glob('**/*')
             fsizes = [f.stat().st_size for f in files]
@@ -109,6 +109,6 @@ def get_chia_data(pid):
             dic['start_time'] = proc.create_time()
         except:
             print("Unexpected error:", sys.exc_info()[0])
-            print(proc.open_files())
+            #print(proc.open_files())
             raise
     return dic

@@ -22,7 +22,8 @@ def get_free_space_at_path(path):
     output = df.communicate()
     #device, size, used, available, percent, mountpoint = \
 
-    out = output[0]#.split("\n")
+    out = output[0]
+    print(out)
     out = out.replace(b"  ",b" ")
     out = out.split(b"\n")[1]
     out = out.split(b" ")[3]
@@ -61,10 +62,10 @@ def get_plot_info_strings():
         pid_data = processutils.get_chia_data(pid)
         if pid_data:
             if pid_data["id"] not in by_id.keys():
-                by_id[pid_data["id"]]={}
+                by_id[pid_data["id"]] = {}
 
             if "lane" in pid_data.keys():
-                by_id[pid_data["id"]]["lane"]=pid_data["lane"]
+                by_id[pid_data["id"]]["lane"] = pid_data["lane"]
 
     """strings = {}
     for pid in processutils.get_chia_pids():
