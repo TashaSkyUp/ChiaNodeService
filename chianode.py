@@ -40,7 +40,8 @@ def find_good_lanes_on_machine():
         if (os.path.isdir(plot_path)) & (os.path.isdir(farm_path)):
             plot = 0
             farm = 0
-            good=0
+            good = 0
+            print ("looking at lane ",i)
             free_plot_space = get_free_space_at_path(plot_path)
             free_farm_space = get_free_space_at_path(farm_path)
             if (int(free_farm_space) > 120000000):
