@@ -39,7 +39,7 @@ def find_good_lanes_on_machine():
     out = []
     for i in range(50):
         plot_path = '/'+'plot' + str(i)
-        farm_path = '/'+'farm' + str(i
+        farm_path = '/'+'farm' + str(i)
         if (os.path.isdir(plot_path)) & (os.path.isdir(farm_path)):
             plot = 0
             farm = 0
