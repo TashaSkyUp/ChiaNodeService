@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import os, time
 import subprocess, select
 import sys
+
 # Initialization
 log = logging.getLogger('chianode')
 log.setLevel(logging.INFO)
@@ -16,19 +17,40 @@ log.setLevel(logging.INFO)
 app = Flask(__name__)
 
 
+def get_free_space_at_path(path):
+    df = subprocess.Popen(["df", path + "/."], stdout=subprocess.PIPE)
+    output = df.communicate()
+    #device, size, used, available, percent, mountpoint = \
+    out = output[0]#.split("\n")
+    out = out.split(b"\n")
+    #out =str(out)
+    return out
+
+
+def find_good_lanes_on_machine():
+    out = []
+    for i in range(50):
+        plot_path = '/'+'plot' + str(i)
+        farm_path = '/'+'farm' + str(i)
+        if (os.path.isdir(plot_path)) & (os.path.isdir(farm_path)):
+            free_plot_space = get_free_space_at_path(plot_path)
+            out += [free_plot_space]
+    return out
+
+
 def get_plot_info_strings():
     strings = {}
     for pid in processutils.get_chia_pids():
         pid_data = processutils.get_chia_data(pid)
         if pid_data:
-            plot_id=pid_data["id"]
-            tminus = ((pid_data["start_time"]-time.time())/(60*60))
-            size = pid_data["cur_dir_size_1"]/ (1024*1024*1024)
-            outstr = "Plot: " + plot_id +\
-                     " size: " + str(size)[:6]+" GiB" + \
-                     " T minus: " +str(tminus)[:6] +" hours"+ \
-                     " MiB/sec: "+str(size*100/-(tminus*60))[:6]
-            strings[plot_id]= outstr
+            plot_id = pid_data["id"]
+            tminus = ((pid_data["start_time"] - time.time()) / (60 * 60))
+            size = pid_data["cur_dir_size_1"] / (1024 * 1024 * 1024)
+            outstr = "Plot: " + plot_id + \
+                     " size: " + str(size)[:6] + " GiB" + \
+                     " T minus: " + str(tminus)[:6] + " hours" + \
+                     " MiB/sec: " + str(size * 100 / -(tminus * 60))[:6]
+            strings[plot_id] = outstr
     return list(strings.values())
 
 
@@ -37,8 +59,8 @@ def index():
     commands = ""
 
     for plot in get_plot_info_strings():
-        commands += plot+"<br>"
-
+        commands += plot + "<br>"
+    commands += str(find_good_lanes_on_machine())
     commands += """
     <div style="display:grid">
         <a href='restart'>restart</a>
@@ -79,10 +101,9 @@ def restarted():
 
 if __name__ == "__main__":
     print("hello from main")
-    print (sys.argv)
+    print(sys.argv)
     print(len(sys.argv))
-    if len (sys.argv)>1:
+    if len(sys.argv) > 1:
         app.run(host="0.0.0.0", port=80, debug=True)
     else:
-        app.run(host="0.0.0.0", port=5000,debug=True)
-
+        app.run(host="0.0.0.0", port=5000, debug=True)
