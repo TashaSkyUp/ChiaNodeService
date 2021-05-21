@@ -28,6 +28,8 @@ def get_free_space_at_path(path):
     out = out.split(b"\n")[1]
     out = out.split(b" ")[3]
     out = out.decode("utf8")
+    if out == '':
+        out ='0'
     #out =str(out)
     return out
 
