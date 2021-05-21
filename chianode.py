@@ -23,7 +23,7 @@ def get_free_space_at_path(path):
     #device, size, used, available, percent, mountpoint = \
 
     out = output[0]
-    print(out)
+    print(path," DF OUTPUT: ", out)
     out = out.replace(b"  ",b" ")
     out = out.split(b"\n")[1]
     out = out.split(b" ")[3]
