@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import os, time
 import subprocess, select
 import sys
-
+import re
 # Initialization
 log = logging.getLogger('chianode')
 log.setLevel(logging.INFO)
@@ -23,10 +23,11 @@ def get_free_space_at_path(path):
     #device, size, used, available, percent, mountpoint = \
 
     out = output[0]
+    out = re.findall(b"\d{3,100}", out)[2]
     print(path," DF OUTPUT: ", out)
-    out = out.replace(b"  ",b" ")
-    out = out.split(b"\n")[1]
-    out = out.split(b" ")[3]
+    #out = out.replace(b"  ",b" ")
+    #out = out.split(b"\n")[1]
+    #out = out.split(b" ")[3]
     out = out.decode("utf8")
     if out == '':
         out ='0'
@@ -38,7 +39,7 @@ def find_good_lanes_on_machine():
     out = []
     for i in range(50):
         plot_path = '/'+'plot' + str(i)
-        farm_path = '/'+'farm' + str(i)
+        farm_path = '/'+'farm' + str(i
         if (os.path.isdir(plot_path)) & (os.path.isdir(farm_path)):
             plot = 0
             farm = 0
