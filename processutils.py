@@ -77,18 +77,21 @@ def get_chia_data(pid):
 
             if len(children) > 0:
                 return
-                dic['id'] = "unknown"
+                cmd = " ".join(proc.cmdline())
+                dic["lane"] = cmd[cmd.index("/plot") + 5]
+
+                #dic['id'] = "unknown"
                 #logfile = children[0]
             else:
+                cmd = " ".join(proc.cmdline())
+                dic["lane"] = cmd[cmd.index("/plot") + 5]
+
                 logfile = proc.open_files()[0]
                 if "path" in logfile.__dir__():
                     logfile = logfile.path
                     dic['id'] = logfile.split("_")[-1].split(".")[0]
                 else:
                     dic['id'] = "unknown"
-
-
-
 
             dic['time'] = datetime.datetime.now()
 
