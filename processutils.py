@@ -90,7 +90,12 @@ def get_chia_data(pid):
                 logfile = proc.open_files()[0]
                 if "path" in logfile.__dir__():
                     logfile = logfile.path
-                    dic['id'] = logfile#.split("_")[-1].split(".")[0]
+                    with open(logfile,"r") as log:
+                        header=log.readlines(10)
+
+                    for s in header:
+                        if s[:4]=="ID: ":
+                            dic['id'] = s[4:]
                 else:
                     dic['id'] = "unknown"
 
