@@ -90,7 +90,7 @@ def get_plot_info_strings():
                      " MiB/sec: " + str(size * 100 / -(tminus * 60))[:6]
 
             strings[plot_id] = outstr
-            """
+    """
     return by_id
 
 
@@ -99,19 +99,29 @@ def index():
     commands = ""
 
     for data in get_plot_info_strings().items():
-        commands += "Lane: "+data[1]["lane"] +" "+data[0] +" <br>"
+        isgood = is_lane_good(data[1])
+        if isgood:
+            if isgood[1] ==1:
+                isgood ="good"
+        else:
+            isgood ="not avail"
+
+        commands += "Lane: "+str(data[1]["lane"])
+        commands += " status: " + isgood
+        commands += " id: " + str(data[0])
+        commands += ' <br> '
 
     for data in find_good_lanes_on_machine():
-        commands += "Lane "+str(data[0])
-        commands += " exists "*data[1] or " not available"
-        commands += "<br>"
+       #    commands += "Lane "+str(data[0])
+       #    commands += " exists "*data[1] or " not available"
+       #    commands += "<br>"
 
-    commands += """
-    <div style="display:grid">
-        <a href='restart'>restart</a>
-        <a href='update'>update</a>
-    </div>    
-    """
+       commands += """
+       <div style="display:grid">
+           <a href='restart'>restart</a>
+           <a href='update'>update</a>
+       </div>    
+       """
     return commands
 
 
