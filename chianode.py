@@ -34,28 +34,32 @@ def get_free_space_at_path(path):
     #out =str(out)
     return out
 
+def is_lane_good(lane):
+    plot_path = '/' + 'plot' + str(lane)
+    farm_path = '/' + 'farm' + str(lane)
+    plot = 0
+    farm = 0
+    good = 0
+    if (os.path.isdir(plot_path)) & (os.path.isdir(farm_path)):
+        print("looking at lane ", lane)
+        free_plot_space = get_free_space_at_path(plot_path)
+        free_farm_space = get_free_space_at_path(farm_path)
+        if (int(free_farm_space) > 120000000):
+            farm = 1
+        if (int(free_plot_space) >= 251980504):
+            plot = 1
+        if plot & farm:
+            good = 1
+    else:
+        return
+    return (lane,good,plot,farm)
 
 def find_good_lanes_on_machine():
     out = []
     for i in range(50):
-        plot_path = '/'+'plot' + str(i)
-        farm_path = '/'+'farm' + str(i)
-        if (os.path.isdir(plot_path)) & (os.path.isdir(farm_path)):
-            plot = 0
-            farm = 0
-            good = 0
-            print ("looking at lane ",i)
-            free_plot_space = get_free_space_at_path(plot_path)
-            free_farm_space = get_free_space_at_path(farm_path)
-            if (int(free_farm_space) > 120000000):
-                farm =1
-            if (int(free_plot_space) >= 251980504):
-                plot =1
-            if plot & farm:
-                good=1
-
-            out += [(i,good,plot,farm)]
-
+            health = is_lane_good(i)
+            if health:
+                out += [health]
     return out
 
 
