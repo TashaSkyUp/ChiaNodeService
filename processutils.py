@@ -2,7 +2,7 @@ import psutil
 import sys
 import datetime
 import pathlib
-
+import re
 def get_chia_pids():
     out = []
     for pid in psutil.pids():
@@ -84,7 +84,8 @@ def get_chia_data(pid):
                 #logfile = children[0]
             else:
                 cmd = " ".join(proc.cmdline())
-                dic["lane"] = cmd[cmd.index("/plot") + 5]
+                dic["lane"]=re.findall("plot\d+", cmd)[0][4:]
+                #dic["lane"] = cmd[cmd.index("/plot") + 5]
 
                 logfile = proc.open_files()[0]
                 if "path" in logfile.__dir__():
