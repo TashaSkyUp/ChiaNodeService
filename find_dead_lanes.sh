@@ -16,6 +16,7 @@ do
 
   echo $(df /plot$num)
   echo $(df /farm$num)
+  echo cat $line | tail -n 1
   echo "pids of lane = "$(ps -ef |grep "/plot$num "| grep chia |awk '{print $3}')
   echo restart?
   read del
