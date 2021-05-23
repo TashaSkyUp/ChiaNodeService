@@ -12,6 +12,7 @@ def get_chia_pids():
                 p_name = proc.name()
                 if ( ("chia" == p_name) or ("chia.exe" == p_name) ):
                     if len(proc.children()) == 0:
+                        if proc.
                         out[proc.ppid()] = proc.pid
         except (psutil.NoSuchProcess):
             pass
@@ -55,18 +56,26 @@ def get_chia_dirs(pid):
 
     return out
 
+def get_chia_plot_id(proc):
+
+    logfile = proc.open_files()[0]
+    if "path" in logfile.__dir__():
+        logfile = logfile.path
+        with open(logfile, "r") as log:
+            header = log.readlines(1024)
+
+        for s in header:
+            if s[:4] == "ID: ":
+                return s[4:]
+    else:
+        return "unknown"
 
 def get_chia_data(pid):
-    #dic = {'time': Empty , 'id': [], 'cur_cpu': [], 'tot_reads': [],
-    #       'tot_writes': [], 'tot_read': [], 'tot_write': [],
-    #       'cur_dir_size_1': [],
-    #       'cur_dir_size_2': [],
-    #       'cur_dir_size_3': []
-    #       }
     dic={}
-    dir_sizes = get_chia_dirs(pid)
+    dir_sizes = get_chia_dirs(pid[0])
+
     try:
-        proc = psutil.Process(pid)
+        proc = psutil.Process(pid[1])
     except:
         raise
 
@@ -86,19 +95,7 @@ def get_chia_data(pid):
             else:
                 cmd = " ".join(proc.cmdline())
                 dic["lane"]=re.findall("plot\d+", cmd)[0][4:]
-                #dic["lane"] = cmd[cmd.index("/plot") + 5]
-
-                logfile = proc.open_files()[0]
-                if "path" in logfile.__dir__():
-                    logfile = logfile.path
-                    with open(logfile,"r") as log:
-                        header=log.readlines(1024)
-
-                    for s in header:
-                        if s[:4]=="ID: ":
-                            dic['id'] = s[4:]
-                else:
-                    dic['id'] = "unknown"
+                dic['id'] = get_chia_plot_id(proc)
 
             dic['time'] = datetime.datetime.now()
 

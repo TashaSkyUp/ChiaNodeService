@@ -66,7 +66,7 @@ def find_good_lanes_on_machine():
 def get_plot_info_strings():
 
     by_id={}
-    for pid in processutils.get_chia_pids():
+    for pid in processutils.get_chia_pids().items():
         pid_data = processutils.get_chia_data(pid)
         if pid_data:
             if pid_data["id"] not in by_id.keys():
