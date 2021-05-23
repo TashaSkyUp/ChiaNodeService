@@ -32,6 +32,6 @@ while [ "1" == "1" ]
 do
   sleep 5 &&
   kill $(ps -ef |grep "/plot$3 "| grep chia |awk '{print $3}')
-  rm /plot$3/*.tmp
+  #rm /plot$3/*.tmp
   nohup $chiaexec2 > lane$[$3]-$[$4].txt & echo $! > lane$[$3]-$[$4].dat
 done
