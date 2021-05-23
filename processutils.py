@@ -12,7 +12,7 @@ def get_chia_pids():
                 p_name = proc.name()
                 if ( ("chia" == p_name) or ("chia.exe" == p_name) ):
                     if len(proc.children()) == 0:
-                        out[proc.ppid] += proc.pid()
+                        out[proc.ppid()] += proc.pid()
         except (psutil.NoSuchProcess):
             pass
 
