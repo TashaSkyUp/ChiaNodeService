@@ -34,7 +34,7 @@ kill $(ps -ef |grep "/plot$3 "| grep chia |awk '{print $3}')
 while [ "1" == "1" ]
 do
   if [ "" == "$(ps -ef |grep "/plot$3 "| grep chia |awk '{print $3}')" ]; then
-    $chiaexec2 > lane$[$3]-$[$4].txt &
+    nohup $chiaexec2 > lane$[$3]-$[$4].txt &
     echo $! > lane$[$3]-$[$4].dat
   fi
   sleep 60
