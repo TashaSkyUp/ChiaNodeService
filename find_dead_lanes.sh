@@ -19,12 +19,12 @@ do
     echo killing $(ps -ef |grep "/plot$num "| grep chia |awk '{print $3}')
     kill $(ps -ef |grep "/plot$num "| grep chia |awk '{print $3}')
     rm $line
-    sleep 10
+    sleep 5
     echo result: $(ps -ef |grep "/plot$num "| grep chia |awk '{print $3}')
     if [ "$(ps -ef |grep "/plot$num "| grep chia |awk '{print $3}')" == "" ]; then
       echo "lane.sh full params"
       read params
-      ./lane.sh $params
+      ./lane.sh $params > null
     fi
 
   fi
