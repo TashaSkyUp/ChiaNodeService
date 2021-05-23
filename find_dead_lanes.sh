@@ -10,9 +10,10 @@ do
   num="$(echo $line | grep -o '[0-9]\+')"
   num="$(echo $line |grep -o  'lane[0-9]\+' | grep -o '[0-9]\+')"
   echo $num
-  echo restart?
+
   echo $(df /plot$num)
   echo $(df /farm$num)
+  echo restart?
   read del
   if [ "$del" == "y" ]; then
 
