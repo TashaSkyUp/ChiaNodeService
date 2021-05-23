@@ -31,8 +31,5 @@ chiaexec2="$chiaexec plots create -k 32 -n 1 -b $1 -r $2 -t /plot$3 -d /farm$4 -
 kill $(ps -ef |grep "/plot$3 "| grep chia |awk '{print $3}')
 while [ "1" == "1" ]
 do
-  sleep 5 &&
-
-  #rm /plot$3/*.tmp
-  nohup $chiaexec2 > lane$[$3]-$[$4].txt & echo $! > lane$[$3]-$[$4].dat
+  sleep 5 && nohup $chiaexec2 > lane$[$3]-$[$4].txt & echo $! > lane$[$3]-$[$4].dat
 done
