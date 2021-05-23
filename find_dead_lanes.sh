@@ -8,6 +8,7 @@ for line in $( echo $(find lane*.txt -mmin +60)):
 do
   echo $line
   num="$(echo $line | grep -o '[0-9]\+')"
+  num="$(echo $line |grep -o  'lane[0-9]\+' | grep -o '[0-9]\+')"
   echo $num
   echo restart?
   echo $(df /plot$num)
@@ -17,9 +18,10 @@ do
 
     echo killing $(ps -ef |grep "/plot$num "| grep chia |awk '{print $3}')
     kill $(ps -ef |grep "/plot$num "| grep chia |awk '{print $3}')
+    rm $line
     sleep 10
     echo result: $(ps -ef |grep "/plot$num "| grep chia |awk '{print $3}')
-    if ["$(ps -ef |grep "/plot$num "| grep chia |awk '{print $3}')" == ""]; then
+    if [ "$(ps -ef |grep "/plot$num "| grep chia |awk '{print $3}')" == "" ]; then
       echo "lane.sh full params"
       read params
       ./lane.sh $params
