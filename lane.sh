@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 if [ $# -eq 0 ]
   then
     echo "memory, threads ,/plot num ,/farm num, plot prefix, farm prefex"
