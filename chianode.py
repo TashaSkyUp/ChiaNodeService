@@ -112,16 +112,17 @@ def index():
         commands += ' <br> '
 
     for data in find_good_lanes_on_machine():
+        pass
        #    commands += "Lane "+str(data[0])
        #    commands += " exists "*data[1] or " not available"
        #    commands += "<br>"
 
-       commands += """
-       <div style="display:grid">
-           <a href='restart'>restart</a>
-           <a href='update'>update</a>
-       </div>    
-       """
+    commands += """
+    <div style="display:grid">
+       <a href='restart'>restart</a>
+       <a href='update'>update</a>
+    </div>    
+    """
     return commands
 
 

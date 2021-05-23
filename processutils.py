@@ -4,14 +4,15 @@ import datetime
 import pathlib
 import re
 def get_chia_pids():
-    out = []
+    out = {}
     for pid in psutil.pids():
         try:
             proc = psutil.Process(pid)
             with proc.oneshot():
                 p_name = proc.name()
-                if (("chia" == p_name) or ("chia.exe" == p_name)):
-                    out += [pid]
+                if ( ("chia" == p_name) or ("chia.exe" == p_name) ):
+                    if len(proc.children() == 0):
+                        out[proc.ppid] += proc.pid()
         except (psutil.NoSuchProcess):
             pass
 
@@ -113,6 +114,9 @@ def get_chia_data(pid):
             dic['tot_read'] = proc.io_counters().read_bytes
             dic['tot_write'] = proc.io_counters().write_bytes
             dic['start_time'] = proc.create_time()
+            dic['io'] = proc.io_counters().write_bytes
+            #dic['ionice'] = proc.ionice()
+
         except:
             print("Unexpected error:", sys.exc_info()[0])
             #print(proc.open_files())
