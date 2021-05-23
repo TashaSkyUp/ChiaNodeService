@@ -1,10 +1,10 @@
 #!/bin/bash
-find lane*.txt -mmin +1
+find lane*.txt -mmin +60
 echo would you like restart some?
 read yesno
 if [ "$yesno" == "y" ]; then
 
-for line in $( echo $(find lane*.txt -mmin +1)):
+for line in $( echo $(find lane*.txt -mmin +60)):
 do
   echo $line
   num="$(echo $line | grep -o '[0-9]\+')"
