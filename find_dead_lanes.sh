@@ -7,7 +7,7 @@ if [ "$yesno" == "y" ]; then
 # full lane
 #if [ "Error 1" == "$(cat lane17.txt | tail -n 1 | grep -o 'Error 1')" ]; then echo crap; fi
 
-for line in $( echo $(find lane*.txt -mmin +60)):
+for line in $( echo $(find lane*.txt -mmin +60))
 do
   echo $line
   num="$(echo $line | grep -o '[0-9]\+')"
