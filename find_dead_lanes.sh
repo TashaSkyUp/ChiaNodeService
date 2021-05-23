@@ -14,8 +14,8 @@ do
   num="$(echo $line |grep -o  'lane[0-9]\+' | grep -o '[0-9]\+')"
   echo $num
 
-  echo $(df /plot$num)
-  echo $(df /farm$num)
+  echo $(df -BG /plot$num)
+  echo $(df -BG /farm$num)
   echo "$(cat $line | tail -n 1)"
   echo "pids of lane = "$(ps -ef |grep "/plot$num "| grep chia |awk '{print $3}')
   echo restart?
