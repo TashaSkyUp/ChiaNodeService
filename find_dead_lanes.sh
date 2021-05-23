@@ -30,7 +30,7 @@ do
     if [ "$(ps -ef |grep "/plot$num "| grep chia |awk '{print $3}')" == "" ]; then
       echo "lane.sh full params"
       read params
-      ./lane.sh $params > null
+      ./lane.sh $params &
     fi
 
   fi
