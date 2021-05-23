@@ -4,6 +4,9 @@ echo would you like restart some?
 read yesno
 if [ "$yesno" == "y" ]; then
 
+# full lane
+#if [ "Error 1" == "$(cat lane17.txt | tail -n 1 | grep -o 'Error 1')" ]; then echo crap; fi
+
 for line in $( echo $(find lane*.txt -mmin +60)):
 do
   echo $line
@@ -13,6 +16,7 @@ do
 
   echo $(df /plot$num)
   echo $(df /farm$num)
+  echo "pids of lane = "$(ps -ef |grep "/plot$num "| grep chia |awk '{print $3}')
   echo restart?
   read del
   if [ "$del" == "y" ]; then
