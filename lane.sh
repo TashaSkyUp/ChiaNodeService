@@ -29,7 +29,13 @@ echo $f_pfx
 chiaexec2="$chiaexec plots create -k 32 -n 1 -b $1 -r $2 -t /plot$3 -d /farm$4 --override-k"
 
 kill $(ps -ef |grep "/plot$3 "| grep chia |awk '{print $3}')
+
+# while no processes on plot
 while [ "1" == "1" ]
 do
-  sleep 5 && $chiaexec2 > lane$[$3]-$[$4].txt & echo $! > lane$[$3]-$[$4].dat
+  if [ "" == "$(ps -ef |grep "/plot$3 "| grep chia |awk '{print $3}')" ]; then
+    $chiaexec2 > lane$[$3]-$[$4].txt &
+    echo $! > lane$[$3]-$[$4].dat
+  fi
+  sleep 60
 done
