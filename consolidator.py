@@ -45,16 +45,21 @@ dest_dir=sys.argv[1]
 farm_info = get_farm_info()
 fullist_farm = find_fullist_farm(farm_info)
 file_to_move_source = find_oldist_file_in_dir(fullist_farm)
+
 file_to_move_dest = file_to_move_source.split("/")[-1]
+file_to_move_dest = dest_dir+'/'+file_to_move_dest
 
 print ("fullist farm is ", fullist_farm, " moving ",file_to_move_source, " to ",file_to_move_dest, " ok?")
 yesno= input()
 
 if "y" in yesno:
-    print(file_to_move_source+'.moving',dest_dir+'/'+file_to_move_dest+'.moving')
+    print(file_to_move_source+'.moving',file_to_move_dest+'.moving')
+
     print("rename")
-    os.rename(file_to_move_source,file_to_move_source+".moving")
+    os.rename(file_to_move_source, file_to_move_source+".moving")
+
     print("move")
-    shutil.move(file_to_move_source+".moving",dest_dir+'/'+file_to_move_dest+'.moving')
+    shutil.move(file_to_move_source+".moving", file_to_move_dest+'.moving')
+
     print("rename")
-    os.rename(file_to_move_source+".moving",file_to_move_source)
+    os.rename(file_to_move_dest+".moving", file_to_move_dest)
