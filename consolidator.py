@@ -37,6 +37,7 @@ def find_fullist_farm(info: dict):
     return list(info.items())[arr.argmin()][0]
 
 def find_oldist_file_in_dir(path):
+    print(path)
     list_of_files = os.listdir(path)
     print(list_of_files)
     full_path = [path+"/"+str(x) for x in list_of_files if x[-4:] == "plot"]
