@@ -44,7 +44,11 @@ def find_oldist_file_in_dir(path):
 
 dest_dir=sys.argv[1]
 auto= sys.argv[2]
-while auto:
+go=1
+while go:
+    if auto != "auto":
+        go=0
+
     farm_info = get_farm_info()
     dest_free =farm_info[dest_dir]
     print("dest has ",dest_free," avail")
