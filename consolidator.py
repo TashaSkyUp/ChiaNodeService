@@ -47,10 +47,14 @@ fullist_farm = find_fullist_farm(farm_info)
 file_to_move_source = find_oldist_file_in_dir(fullist_farm)
 file_to_move_dest = file_to_move_source.split("/")[-1]
 
-print(file_to_move_source+'.moving',dest_dir+'/'+file_to_move_dest+'.moving')
-print("rename")
-os.rename(file_to_move_source,file_to_move_source+".moving")
-print("move")
-shutil.move(file_to_move_source+".moving",dest_dir+'/'+file_to_move_dest+'.moving')
-print("rename")
-os.rename(file_to_move_source+".moving",file_to_move_source)
+print ("fullist farm is ", fullist_farm, " moving ",file_to_move_source, " to ",file_to_move_dest, " ok?")
+yesno= input()
+
+if "y" in yesno:
+    print(file_to_move_source+'.moving',dest_dir+'/'+file_to_move_dest+'.moving')
+    print("rename")
+    os.rename(file_to_move_source,file_to_move_source+".moving")
+    print("move")
+    shutil.move(file_to_move_source+".moving",dest_dir+'/'+file_to_move_dest+'.moving')
+    print("rename")
+    os.rename(file_to_move_source+".moving",file_to_move_source)
