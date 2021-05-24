@@ -38,7 +38,9 @@ def find_fullist_farm(info: dict):
 
 def find_oldist_file_in_dir(path):
     list_of_files = os.listdir(path)
+    print(list_of_files)
     full_path = [path+"/"+str(x) for x in list_of_files if x[-4:] == "plot"]
+    print(full_path)
     oldest_file = min(full_path, key=os.path.getmtime)
     return oldest_file
 
