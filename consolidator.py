@@ -3,6 +3,8 @@ import os
 import numpy as np
 import sys
 import shutil
+from file_utils import progress_file_move
+
 
 def get_free_space_at_dir(path):
     df = subprocess.Popen(["df", "-BG", path], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
@@ -41,25 +43,36 @@ def find_oldist_file_in_dir(path):
     return oldest_file
 
 dest_dir=sys.argv[1]
+auto= sys.argv[2]
+while auto:
+    farm_info = get_farm_info()
+    dest_free =farm_info[dest_dir]
+    print("dest has ",dest_free," avail")
 
-farm_info = get_farm_info()
-fullist_farm = find_fullist_farm(farm_info)
-file_to_move_source = find_oldist_file_in_dir(fullist_farm)
+    if dest_free<102:
+        print("dest full")
+        exit
 
-file_to_move_dest = file_to_move_source.split("/")[-1]
-file_to_move_dest = dest_dir+'/'+file_to_move_dest
+    fullist_farm = find_fullist_farm(farm_info)
+    file_to_move_source = find_oldist_file_in_dir(fullist_farm)
 
-print ("fullist farm is ", fullist_farm, " moving ",file_to_move_source, " to ",file_to_move_dest, " ok?")
-yesno= input()
+    file_to_move_dest = file_to_move_source.split("/")[-1]
+    file_to_move_dest = dest_dir+'/'+file_to_move_dest
 
-if "y" in yesno:
-    print(file_to_move_source+'.moving',file_to_move_dest+'.moving')
+    print ("fullist farm is ", fullist_farm, " moving ",file_to_move_source, " to ",file_to_move_dest, " ok?")
+    if not auto:
+        yesno= input()
+    else:
+        yesno="y"
 
-    print("rename")
-    os.rename(file_to_move_source, file_to_move_source+".moving")
+    if "y" in yesno:
+        print(file_to_move_source+'.moving',file_to_move_dest+'.moving')
 
-    print("move")
-    shutil.move(file_to_move_source+".moving", file_to_move_dest+'.moving')
+        print("rename")
+        os.rename(file_to_move_source, file_to_move_source+".moving")
 
-    print("rename")
-    os.rename(file_to_move_dest+".moving", file_to_move_dest)
+        print("move")
+        progress_file_move(file_to_move_source+".moving", file_to_move_dest+'.moving')
+
+        print("rename")
+        os.rename(file_to_move_dest+".moving", file_to_move_dest)
