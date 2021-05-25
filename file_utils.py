@@ -22,7 +22,10 @@ class progress_file_move:
 
         while size < self.file_size:
             size = self.get_dest_file_size()
-            percent = str(size / self.file_size)
+            percent = str((size / self.file_size)*100)
+            percent = percent.split(".")
+            percent[1] = percent[1][:2]
+            percent = ".".join()
             print('\b' * 100 + str(size) + "/" + str(self.file_size) + " = " + percent + '%', end='')
             time.sleep(.001)
 
