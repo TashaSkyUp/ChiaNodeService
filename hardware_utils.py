@@ -67,4 +67,4 @@ def get_disk_info():
 disk_info=get_disk_info()
 for disk in disk_info:
     print(disk)
-    print(disk_info[disk]["Model"])
+    print(disk_info[disk]["Model"],"\n")
