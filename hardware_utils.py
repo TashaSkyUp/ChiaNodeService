@@ -63,5 +63,8 @@ def get_disk_info():
             out_dict2[key]["Vendor"] = data_in["Vendor"]
 
 
-    print(out_dict2)
-get_disk_info()
+    return out_dict2
+disk_info=get_disk_info()
+for disk in disk_info:
+    print(disk)
+    print(disk_info[disk]["Model"])
