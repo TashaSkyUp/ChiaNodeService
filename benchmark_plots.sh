@@ -4,8 +4,11 @@ do
   echo $i
   for t in `seq 1 $3`
   do
-    testfile=/plot$i/tmp.tmp$t
-    dd if=/dev/zero of=$testfile bs=$(($4))G count=1 oflag=dsync && rm $testfile &
+    for tt in `seq 1 $4`
+    do
+      testfile=/plot$i/tmp.tmp$t
+      dd if=/dev/zero of=$testfile bs=2G count=1 oflag=dsync && rm $testfile &
+    done
   done
   #sleep 10
   #for t in `seq 1 $3`
