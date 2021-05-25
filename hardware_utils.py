@@ -57,19 +57,21 @@ def get_disk_info():
         data_in = out_dict[data[0]]
         print('\n'.join(data_in))
 
-        if "Model" in data_in.keys():
-            out_dict2[key]["Model"]=data_in["Model"]
-        if "Vendor" in data_in.keys():
-            out_dict2[key]["Vendor"] = data_in["Vendor"]
-
+        fields = ["Model",
+                  "Vendor",
+                  "Device",
+                  "Capacity"]
+        for field in fields:
+            if field in data_in.keys():
+                out_dict2[key][field]=data_in[field]
 
     return out_dict2
 disk_info=get_disk_info()
 for disk in disk_info:
     print(disk)
-    try:
-        print(disk_info[disk]["Vendor"])
-    except:
-        pass
-    print(disk_info[disk]["Model"])
+    for field in disk_info[disk].keys():
+        try:
+            print(disk_info[disk][field])
+        except:
+            pass
     print("")
