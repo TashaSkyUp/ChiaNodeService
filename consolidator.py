@@ -45,8 +45,14 @@ def find_oldist_file_in_dir(path):
     oldest_file = min(full_path, key=os.path.getmtime)
     return oldest_file
 
+
+
 dest_dir=sys.argv[1]
-auto= sys.argv[2]
+
+try:
+    auto= sys.argv[2]
+except:
+    auto="no"
 go=1
 while go:
     if auto != "auto":
@@ -59,6 +65,12 @@ while go:
     if dest_free<102:
         print("dest full")
         exit
+
+    #remove destination as possible soruce
+    try:
+        farm_info.pop(dest_dir)
+    except:
+        pass
 
     fullist_farm = find_fullist_farm(farm_info)
     file_to_move_source = find_oldist_file_in_dir(fullist_farm)
