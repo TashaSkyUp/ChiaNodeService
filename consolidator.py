@@ -26,7 +26,7 @@ def get_free_space_at_dir(path):
 
 
 def get_farm_info():
-    farm_dirs = ["/farm" + str(i) for i in range(50)]
+    farm_dirs = ["/farm" + str(i) for i in range(7)]
     farms_dic = {path: get_free_space_at_dir(path) for path in farm_dirs if get_free_space_at_dir(path) != -1}
     return farms_dic
 
@@ -93,7 +93,10 @@ while go:
         os.rename(file_to_move_source, file_to_move_source+".moving")
 
         print("move")
-        progress_file_move(file_to_move_source+".moving", file_to_move_dest+'.moving')
+        mover=progress_file_move(file_to_move_source+".moving", file_to_move_dest+'.moving')
 
         print("rename")
         os.rename(file_to_move_dest+".moving", file_to_move_dest)
+
+        if mover.error != "":
+            raise mover.error

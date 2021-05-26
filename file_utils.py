@@ -17,12 +17,13 @@ class progress_file_move:
         self.file_size = self.get_source_file_size()
         self.start_time = time.monotonic()
         self.time_elapsed = lambda: time.monotonic() - self.start_time
+        self.error = ""
         print(self.mydir)
         t = threading.Thread(target=self.worker)
         t.start()
         size = 0
 
-        while size < self.file_size:
+        while (size < self.file_size)&(self.error==""):
             lsize = size
             size = self.get_dest_file_size()
 
@@ -38,7 +39,10 @@ class progress_file_move:
             time.sleep(0.01)
 
     def worker(self):
-        shutil.move(self.source, self.dest)
+        try:
+            shutil.move(self.source, self.dest)
+        except shutil.SameFileError as err:
+            self.error = err
         return
 
     def get_worker_state(self):
