@@ -18,7 +18,7 @@ class progress_file_move:
         self.start_time = time.monotonic()
         self.time_elapsed = lambda: time.monotonic() - self.start_time
         self.error = ""
-        print(self.mydir)
+        #print(self.mydir)
         t = threading.Thread(target=self.worker)
         t.start()
         size = 0
