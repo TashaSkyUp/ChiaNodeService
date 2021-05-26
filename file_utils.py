@@ -26,7 +26,7 @@ class progress_file_move:
             lsize = size
             size = self.get_dest_file_size()
 
-            rate = (size-lsize)/(1024*1024)/self.time_elapsed()
+            rate = size/(1024*1024)/self.time_elapsed()
 
             rate = str("{:.2f}".format(rate))
 
