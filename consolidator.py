@@ -56,7 +56,7 @@ except:
     auto="no"
 go=1
 while go:
-    if auto != "auto":
+    if auto != "yes":
         go=0
 
     farm_info = get_farm_info()
