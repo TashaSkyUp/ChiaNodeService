@@ -26,7 +26,7 @@ def get_free_space_at_dir(path):
 
 
 def get_farm_info():
-    farm_dirs = ["/farm" + str(i) for i in range(7)]
+    farm_dirs = ["/farm" + str(i) for i in range(8)]
     farms_dic = {path: get_free_space_at_dir(path) for path in farm_dirs if get_free_space_at_dir(path) != -1}
     return farms_dic
 
@@ -38,11 +38,11 @@ def find_fullist_farm(info: dict):
     return list(info.items())[arr.argmin()][0]
 
 def find_oldist_file_in_dir(path):
-    print(path)
+    #print(path)
     list_of_files = os.listdir(path)
-    print(list_of_files)
+    #print(list_of_files)
     full_path = [path+"/"+str(x) for x in list_of_files if x[-4:] == "plot"]
-    print(full_path)
+    #print(full_path)
     oldest_file = min(full_path, key=os.path.getmtime)
     return oldest_file
 
