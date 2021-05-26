@@ -35,7 +35,7 @@ class progress_file_move:
             percent[1] = percent[1][:2]
             percent = ".".join(percent)
             print('\b' * 100 + str(size) + "/" + str(self.file_size) + " = " + percent + '%', rate+" Mib/Sec",end='    ')
-            time.sleep(.1)
+            time.sleep(0.01)
 
     def worker(self):
         shutil.move(self.source, self.dest)
