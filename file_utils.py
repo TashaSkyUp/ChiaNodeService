@@ -30,7 +30,7 @@ class progress_file_move:
             percent = str((size / self.file_size)*100)
             percent = percent.split(".")
             percent[1] = percent[1][:2]
-            percent = ".".join()
+            percent = ".".join(percent)
             print('\b' * 100 + str(size) + "/" + str(self.file_size) + " = " + percent + '%', rate+" Mib/Sec",end='')
             time.sleep(.1)
 
