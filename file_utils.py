@@ -21,13 +21,18 @@ class progress_file_move:
         size = 0
 
         while size < self.file_size:
+            lsize = size
             size = self.get_dest_file_size()
+
+            rate = str((size-lsize)*10)/(1024*1024)
+            rate = float("{:.2f}".format(rate))
+
             percent = str((size / self.file_size)*100)
             percent = percent.split(".")
             percent[1] = percent[1][:2]
             percent = ".".join()
-            print('\b' * 100 + str(size) + "/" + str(self.file_size) + " = " + percent + '%', end='')
-            time.sleep(.001)
+            print('\b' * 100 + str(size) + "/" + str(self.file_size) + " = " + percent + '%', rate+" Mib/Sec",end='')
+            time.sleep(.1)
 
     def worker(self):
         shutil.move(self.source, self.dest)

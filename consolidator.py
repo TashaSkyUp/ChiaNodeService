@@ -80,7 +80,8 @@ while go:
     file_to_move_dest = dest_dir+'/'+file_to_move_dest
 
     print ("fullist farm is ", fullist_farm, " moving ",file_to_move_source, " to ",file_to_move_dest, " ok?")
-    if not auto:
+
+    if auto != "yes":
         yesno= input()
     else:
         yesno="y"
