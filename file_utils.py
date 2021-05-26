@@ -24,8 +24,8 @@ class progress_file_move:
             lsize = size
             size = self.get_dest_file_size()
 
-            rate = str( ((size-lsize)*10)/(1024*1024) )
-            rate = float("{:.2f}".format(rate))
+            rate = ((size-lsize)*10)/(1024*1024)
+            rate = str("{:.2f}".format(rate))
 
             percent = str((size / self.file_size)*100)
             percent = percent.split(".")
