@@ -31,6 +31,12 @@ def get_farm_info():
     return farms_dic
 
 
+def find_least_full_farm(info: dict):
+    #print(info)
+    l = [int(i) for i in info.values()]
+    arr = np.array(l)
+    return list(info.items())[arr.argmax()][0]
+
 def find_fullist_farm(info: dict):
     #print(info)
     l = [int(i) for i in info.values()]
@@ -49,9 +55,13 @@ def find_oldist_file_in_dir(path,minsize = 108000000000):
 
     return oldest_file
 
+def get_dest_dir():
+    if "level" == sys.argv[1]:
+        info = get_farm_info()
+        return find_least_full_farm(info)
+    else:
+        return sys.arv[1]
 
-
-dest_dir=sys.argv[1]
 
 try:
     auto= sys.argv[2]
@@ -61,6 +71,8 @@ go=1
 while go:
     if auto != "yes":
         go=0
+
+    dest_dir = get_dest_dir()
 
     farm_info = get_farm_info()
     dest_free =farm_info[dest_dir]
