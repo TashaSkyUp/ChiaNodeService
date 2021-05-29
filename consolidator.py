@@ -60,7 +60,7 @@ def get_dest_dir():
         info = get_farm_info()
         return find_least_full_farm(info)
     else:
-        return sys.arv[1]
+        return sys.argv[1]
 
 
 try:
