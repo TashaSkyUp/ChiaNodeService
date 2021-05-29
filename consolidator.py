@@ -75,7 +75,12 @@ while go:
     dest_dir = get_dest_dir()
 
     farm_info = get_farm_info()
-    dest_free =farm_info[dest_dir]
+
+    try:
+        dest_free = farm_info[dest_dir]
+    except KeyError:
+        dest_free =  get_free_space_at_dir(dest_dir)
+
     print("dest has ",dest_free," avail")
 
     if dest_free<102:
