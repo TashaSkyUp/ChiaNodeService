@@ -68,6 +68,7 @@ try:
 except:
     auto="no"
 go=1
+
 while go:
     if auto != "yes":
         go=0
@@ -109,13 +110,13 @@ while go:
     if "y" in yesno:
         print(file_to_move_source+'.moving',file_to_move_dest+'.moving')
 
-        print("rename")
+        print("rename source")
         os.rename(file_to_move_source, file_to_move_source+".moving")
 
         print("move")
         mover=progress_file_move(file_to_move_source+".moving", file_to_move_dest+'.moving')
 
-        print("rename")
+        print("rename dest")
         os.rename(file_to_move_dest+".moving", file_to_move_dest)
 
         if mover.error != "":
