@@ -11,7 +11,7 @@ def get_free_space_at_dir(path):
     df = subprocess.Popen(["df", "-BG", path], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
     output = df.communicate()[0]
     output = output.decode("utf8")
-    #print(output)
+    # print(output)
     try:
         output = output.splitlines()
         output = [o for o in output[1].split(" ") if len(o) >= 1]
@@ -32,28 +32,31 @@ def get_farm_info():
 
 
 def find_least_full_farm(info: dict):
-    #print(info)
+    # print(info)
     l = [int(i) for i in info.values()]
     arr = np.array(l)
     return list(info.items())[arr.argmax()][0]
 
+
 def find_fullist_farm(info: dict):
-    #print(info)
+    # print(info)
     l = [int(i) for i in info.values()]
     arr = np.array(l)
     return list(info.items())[arr.argmin()][0]
 
-def find_oldist_file_in_dir(path,minsize = 108000000000):
-    #print(path)
+
+def find_oldist_file_in_dir(path, minsize=108000000000):
+    # print(path)
     list_of_files = os.listdir(path)
-    #print(list_of_files)
-    full_path = [path+"/"+str(x) for x in list_of_files if x[-4:] == "plot"]
+    # print(list_of_files)
+    full_path = [path + "/" + str(x) for x in list_of_files if x[-4:] == "plot"]
     full_path = [x for x in full_path if os.path.getsize(x) >= minsize]
 
-    #print(full_path)
+    # print(full_path)
     oldest_file = min(full_path, key=os.path.getmtime)
 
     return oldest_file
+
 
 def get_dest_dir():
     if "level" == sys.argv[1]:
@@ -64,14 +67,14 @@ def get_dest_dir():
 
 
 try:
-    auto= sys.argv[2]
+    auto = sys.argv[2]
 except:
-    auto="no"
-go=1
+    auto = "no"
+go = 1
 
 while go:
     if auto != "yes":
-        go=0
+        go = 0
 
     dest_dir = get_dest_dir()
 
@@ -80,15 +83,15 @@ while go:
     try:
         dest_free = farm_info[dest_dir]
     except KeyError:
-        dest_free =  get_free_space_at_dir(dest_dir)
+        dest_free = get_free_space_at_dir(dest_dir)
 
-    print("dest has ",dest_free," avail")
+    print("dest has ", dest_free, " avail")
 
-    if dest_free<102:
+    if int(dest_free) < 102:
         print("dest full")
         exit
 
-    #remove destination as possible soruce
+    # remove destination as possible soruce
     try:
         farm_info.pop(dest_dir)
     except:
@@ -98,26 +101,26 @@ while go:
     file_to_move_source = find_oldist_file_in_dir(fullist_farm)
 
     file_to_move_dest = file_to_move_source.split("/")[-1]
-    file_to_move_dest = dest_dir+'/'+file_to_move_dest
+    file_to_move_dest = dest_dir + '/' + file_to_move_dest
 
-    print ("fullist farm is ", fullist_farm, " moving ",file_to_move_source, " to ",file_to_move_dest, " ok?")
+    print("fullist farm is ", fullist_farm, " moving ", file_to_move_source, " to ", file_to_move_dest, " ok?")
 
     if auto != "yes":
-        yesno= input()
+        yesno = input()
     else:
-        yesno="y"
+        yesno = "y"
 
     if "y" in yesno:
-        print(file_to_move_source+'.moving',file_to_move_dest+'.moving')
+        print(file_to_move_source + '.moving', file_to_move_dest + '.moving')
 
         print("rename source")
-        os.rename(file_to_move_source, file_to_move_source+".moving")
+        os.rename(file_to_move_source, file_to_move_source + ".moving")
 
         print("move")
-        mover=progress_file_move(file_to_move_source+".moving", file_to_move_dest+'.moving')
+        mover = progress_file_move(file_to_move_source + ".moving", file_to_move_dest + '.moving')
 
         print("rename dest")
-        os.rename(file_to_move_dest+".moving", file_to_move_dest)
+        os.rename(file_to_move_dest + ".moving", file_to_move_dest)
 
         if mover.error != "":
             raise mover.error
