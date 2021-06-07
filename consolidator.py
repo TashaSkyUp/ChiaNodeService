@@ -26,7 +26,7 @@ def get_free_space_at_dir(path):
 
 
 def get_farm_info():
-    farm_dirs = ["/farm" + str(i) for i in range(8)]
+    farm_dirs = ["/farm" + str(i) for i in range(100)]
     farms_dic = {path: get_free_space_at_dir(path) for path in farm_dirs if get_free_space_at_dir(path) != -1}
     return farms_dic
 
