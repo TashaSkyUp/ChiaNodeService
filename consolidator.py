@@ -11,16 +11,16 @@ def get_free_space_at_dir(path):
     df = subprocess.Popen(["df", "-BG", path], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
     output = df.communicate()[0]
     output = output.decode("utf8")
-    print(output)
+    #print(output)
     try:
         output = output.splitlines()
         output = [o for o in output[1].split(" ") if len(o) >= 1]
 
-        device, size, used, available, percent, mountpoint = \
-            output
+        device, size, used, available, percent, mountpoint = output
 
         print(device, size, used, available, percent, mountpoint)
     except:
+        print("err",output)
         return -1
     return int(available[:-1])
 
