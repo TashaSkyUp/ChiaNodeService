@@ -19,6 +19,8 @@ def get_free_space_at_dir(path):
         device, size, used, available, percent, mountpoint = output
 
         print(device, size, used, available, percent, mountpoint)
+        if mountpoint == "/":
+            return -1
     except:
         print("err",output)
         return -1
