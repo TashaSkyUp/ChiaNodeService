@@ -52,7 +52,7 @@ def find_oldist_file_in_dir(path, minsize=108000000000):
     full_path = [path + "/" + str(x) for x in list_of_files if x[-4:] == "plot"]
     full_path = [x for x in full_path if os.path.getsize(x) >= minsize]
 
-    # print(full_path)
+    print(full_path)
     oldest_file = min(full_path, key=os.path.getmtime)
 
     return oldest_file
