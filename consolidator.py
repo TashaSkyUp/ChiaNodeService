@@ -19,7 +19,7 @@ def get_free_space_at_dir(path):
         device, size, used, available, percent, mountpoint = \
             output
 
-        # print(device, size, used, available, percent, mountpoint)
+        print(device, size, used, available, percent, mountpoint)
     except:
         return -1
     return int(available[:-1])
